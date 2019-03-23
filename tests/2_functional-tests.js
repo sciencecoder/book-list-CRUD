@@ -115,7 +115,7 @@ db_connect((db) => {
       
       .end(function(err, res){
         assert.equal(res.status, 200, "should have status 200");
-       assert.equal(res.text, "cannot find book data with provided _id")
+        assert.equal(res.text, "cannot find book data with provided _id")
         done();
       });
       });
@@ -125,7 +125,7 @@ db_connect((db) => {
       .get('/api/books/' + test_id)
       .end(function(err, res){
         assert.equal(res.status, 200, "should have status 200");
-         assert.isObject(res.body, "response body should be an object")
+        assert.isObject(res.body, "response body should be an object")
         assert.property(res.body, 'commentcount', 'Book should contain commentcount');
         assert.property(res.body, 'title', 'Book should contain title');
         assert.property(res.body, '_id', 'Book should contain _id');
