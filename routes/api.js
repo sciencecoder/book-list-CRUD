@@ -11,7 +11,6 @@ require("dotenv").config()
 var expect = require('chai').expect;
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectId;
-const MONGODB_CONNECTION_STRING = process.env.DB;
 function db_connect(callback) {
   MongoClient.connect(process.env.DB, function(err, db) {
     if(err) console.error(err);

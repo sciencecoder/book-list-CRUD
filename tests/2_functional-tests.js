@@ -38,6 +38,23 @@ suite('Functional Tests', function() {
   */
   var test_id = "5c9680160b435f0acead047d";
   //test Id must be id present in DB.
+  var MongoClient = require('mongodb').MongoClient;
+  var ObjectId = require('mongodb').ObjectId;
+function db_connect(callback) {
+  MongoClient.connect(process.env.DB, function(err, db) {
+    if(err) console.error(err);
+    callback(db.collection("booklist"))
+  })
+}
+db_connect((db) => {
+  db.insert({title: "Baptism of fire", comments: [], commentcount: 0, _id: ObjectId(test_id)}, function(err, book) {
+    if(err)   console.error((err))
+    console.log("added test document succesfully", book)       
+              
+  })
+})
+
+
   suite('Routing tests', function() {
 
 
@@ -46,7 +63,7 @@ suite('Functional Tests', function() {
       test('Test POST /api/books with title', function(done) {
         chai.request(server)
       .post('/api/books')
-      .send({title: "example book title"})
+      .send({title: "test book title"})
       .end(function(err, res){
         assert.equal(res.status, 200, "should have status 200");
         assert.property(res.body, 'commentcount', 'Books in array should contain commentcount');
